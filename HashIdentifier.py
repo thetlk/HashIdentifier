@@ -9,7 +9,10 @@ HASHES = {"MD5": re.compile(r"^[A-Fa-f0-9]{32}$"),
           "SHA224": re.compile(r"^[A-Fa-f0-9]{56}$"),
           "SHA256": re.compile(r"^[A-Fa-f0-9]{64}$"),
           "SHA384": re.compile(r"^[A-Fa-f0-9]{96}$"),
-          "SHA512": re.compile(r"^[A-Fa-f0-9]{128}$")}
+          "SHA512": re.compile(r"^[A-Fa-f0-9]{128}$"),
+          "MySQL": re.compile(r"^[A-Fa-f0-9]{16}$"),
+          "MD5-Crypt": re.compile(r"^\$1\$[a-zA-Z0-9./]{8}\$[a-zA-Z0-9./]{1,}$"),
+          "SHA512-Crypt": re.compile(r"^\$6\$[a-zA-Z0-9./]{8}\$[a-zA-Z0-9./]{1,}$")}
 
 
 def main():
