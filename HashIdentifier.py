@@ -54,9 +54,22 @@ def identify(hashe):
 def main():
 
     parser = argparse.ArgumentParser(description='Identify hashes')
+    parser.add_argument('--file', help='Say if hash arg is a file', action="store_true", default=False)
     parser.add_argument('hash', help='hashes or files with hashes to identify', nargs="+")
     args = parser.parse_args()
     hashes = args.hash
+
+    if args.file is True:
+        filesHashes = hashes
+        hashes = list()
+        for fileHashes in filesHashes:
+            try:
+                fichier = open(fileHashes,'r')
+                for line in fichier:
+                    hashes.append(line.strip("\n"))
+                fichier.close()
+            except IOError:
+                print "[-] No such file '%s' - ignoring" % fileHashes
 
     results = {}
 
