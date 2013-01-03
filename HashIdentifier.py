@@ -78,7 +78,7 @@ def main():
 
     for hashe, result in results.items():
         if len(result) == 0:
-            print "[-] Unabble to identify the hash : '%s'" % hashe
+            print "[-] Unable to identify the hash : '%s'" % hashe
         else:
             if len(results) == 1:
                 print "[+] Result for '%s' :" % hashe
