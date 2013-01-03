@@ -40,12 +40,7 @@ HASHES = {"MD5": re.compile(r"^[A-Fa-f0-9]{32}$"),
           "SHA512-Crypt": re.compile(r"^\$6\$[a-zA-Z0-9./]{8}\$[a-zA-Z0-9./]{1,}$")}
 
 
-def main():
-
-    parser = argparse.ArgumentParser(description='Identify a hash')
-    parser.add_argument('hash', help='hash to identify')
-    args = parser.parse_args()
-    hashe = args.hash
+def identify(hashe):
 
     results = []
 
@@ -53,17 +48,32 @@ def main():
         if hashRegexp.match(hashe):
             results.append(hashName)
 
-    if len(results) == 0:
-        print "[-] Unabble to identify the hash : %s" % hashe
-        return
+    return results
 
-    if len(results) == 1:
-        print "[+] Result for '%s' :" % hashe
-    else:
-        print "[+] '%s' can be :" % hashe
 
-    for result in results:
-        print "\t - %s" % result
+def main():
+
+    parser = argparse.ArgumentParser(description='Identify hashes')
+    parser.add_argument('hash', help='hashes or files with hashes to identify', nargs="+")
+    args = parser.parse_args()
+    hashes = args.hash
+
+    results = {}
+
+    for hashe in hashes:
+        results[hashe] = identify(hashe)
+
+    for hashe, result in results.items():
+        if len(result) == 0:
+            print "[-] Unabble to identify the hash : '%s'" % hashe
+        else:
+            if len(results) == 1:
+                print "[+] Result for '%s' :" % hashe
+            else:
+                print "[+] '%s' can be : " % hashe
+
+            for r in result:
+                print "\t - %s" % result
 
 if __name__ == '__main__':
     main()
