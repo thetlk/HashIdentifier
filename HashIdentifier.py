@@ -79,7 +79,7 @@ def main():
         if len(result) == 0:
             print "[-] Unable to identify the hash : '%s'" % hashe
         else:
-            print "[+] %d result%s for '%s' :" % (len(result), ["","s"][len(result)>1] ,hashe)
+            print "[+] %d result%s for '%s' :" % (len(result), 's' if len(result) > 1 else '',hashe)
             for r in result:
                 print "\t - %s" % r
 
