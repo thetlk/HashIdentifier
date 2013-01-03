@@ -23,13 +23,20 @@ import argparse
 import re
 
 HASHES = {"MD5": re.compile(r"^[A-Fa-f0-9]{32}$"),
-          "SHA1": re.compile(r"^[A-Fa-f0-9]{40}$"),
+          "SHA1 hexcoded": re.compile(r"^[A-Fa-f0-9]{40}$"),
+          "SHA1 base64coded (LDAP SHA)": re.compile(r"^\{SHA\}[a-zA-Z0-9+/]{27}=$"),
+          "SHA1 base64coded + salt (LDAP SSHA)": re.compile(r"^\{SSHA\}[a-zA-Z0-9+/]{28,}[=]{0,3}$"),
           "SHA224": re.compile(r"^[A-Fa-f0-9]{56}$"),
           "SHA256": re.compile(r"^[A-Fa-f0-9]{64}$"),
           "SHA384": re.compile(r"^[A-Fa-f0-9]{96}$"),
           "SHA512": re.compile(r"^[A-Fa-f0-9]{128}$"),
           "MySQL": re.compile(r"^[A-Fa-f0-9]{16}$"),
           "MD5-Crypt": re.compile(r"^\$1\$[a-zA-Z0-9./]{8}\$[a-zA-Z0-9./]{1,}$"),
+          "MD5-Crypt Apache (MD5-Crypt with 1000 iterations)": re.compile(r"^\$apr1\$[a-zA-Z0-9./]{8}\$[a-zA-Z0-9./]{1,}$"),
+          "Blowfish-Crypt": re.compile(r"^\$2[axy]{0,1}\$[a-zA-Z0-9./]{8}\$[a-zA-Z0-9./]{1,}$"),
+          "NT-Crypt": re.compile(r"^\$3\$[a-zA-Z0-9./]{8}\$[a-zA-Z0-9./]{1,}$"),
+          "SHA1-Crypt": re.compile(r"^\$4\$[a-zA-Z0-9./]{8}\$[a-zA-Z0-9./]{1,}$"),
+          "SHA256-Crypt": re.compile(r"^\$5\$[a-zA-Z0-9./]{8}\$[a-zA-Z0-9./]{1,}$"),
           "SHA512-Crypt": re.compile(r"^\$6\$[a-zA-Z0-9./]{8}\$[a-zA-Z0-9./]{1,}$")}
 
 
@@ -47,7 +54,7 @@ def main():
             results.append(hashName)
 
     if len(results) == 0:
-        print "[-] Unabble to identify the hash"
+        print "[-] Unabble to identify the hash : %s" % hashe
         return
 
     if len(results) == 1:
