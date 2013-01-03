@@ -64,10 +64,9 @@ def main():
         hashes = list()
         for fileHashes in filesHashes:
             try:
-                fichier = open(fileHashes,'r')
-                for line in fichier:
-                    hashes.append(line.strip("\n"))
-                fichier.close()
+                with open(fileHashes, 'r') as fichier:
+                    for line in fichier:
+                        hashes.append(line.strip())
             except IOError:
                 print "[-] No such file '%s' - ignoring" % fileHashes
 
