@@ -86,7 +86,7 @@ def main():
                 print "[+] '%s' can be : " % hashe
 
             for r in result:
-                print "\t - %s" % result
+                print "\t - %s" % r
 
 if __name__ == '__main__':
     main()
